@@ -35,6 +35,7 @@ public class Handshake implements MinecraftPacket {
   private String serverAddress = "";
   private int port;
   private int nextStatus;
+  private String remoteAddress = "";
 
   public ProtocolVersion getProtocolVersion() {
     return protocolVersion;
@@ -68,6 +69,14 @@ public class Handshake implements MinecraftPacket {
     this.nextStatus = nextStatus;
   }
 
+  public String getRemoteAddress() {
+    return remoteAddress;
+  }
+
+  public void setRemoteAddress(String remoteAddress) {
+    this.remoteAddress = remoteAddress;
+  }
+
   @Override
   public String toString() {
     return "Handshake{"
@@ -85,6 +94,7 @@ public class Handshake implements MinecraftPacket {
     this.serverAddress = ProtocolUtils.readString(buf, MAXIMUM_HOSTNAME_LENGTH);
     this.port = buf.readUnsignedShort();
     this.nextStatus = ProtocolUtils.readVarInt(buf);
+    this.remoteAddress = ProtocolUtils.readString(buf);
   }
 
   @Override

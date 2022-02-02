@@ -38,6 +38,7 @@ import com.velocitypowered.proxy.protocol.packet.LegacyPing;
 import io.netty.buffer.ByteBuf;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.Optional;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -90,6 +91,7 @@ public class HandshakeSessionHandler implements MinecraftSessionHandler {
       connection.setState(nextState);
       connection.setProtocolVersion(handshake.getProtocolVersion());
       connection.setAssociation(ic);
+      connection.setRemoteAddress(new InetSocketAddress(handshake.getRemoteAddress(), ic.getRemoteAddress().getPort()));
 
       switch (nextState) {
         case STATUS:
